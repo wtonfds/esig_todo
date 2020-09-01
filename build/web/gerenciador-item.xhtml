@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml">
+
+    
+    <h:form>
+        <p:fieldset legend="Itens">
+            <p:panelGrid columns="2" rendered="#{itensBean.busca == false}"> 
+                <h:outputLabel value="Cod. Item"></h:outputLabel>
+                <h:inputText value="#{itensBean.entidade.codeItem}"></h:inputText>
+                
+                <h:outputLabel value="Nome"></h:outputLabel>
+                <h:inputText value="#{itensBean.entidade.nome}"></h:inputText>
+
+                <h:outputLabel value="Preço"></h:outputLabel>
+                <h:inputText value="#{itensBean.entidade.preco}"></h:inputText>
+
+                <h:outputLabel value="Quantidade"></h:outputLabel>
+                <h:inputText value="#{itensBean.entidade.quantidade}"></h:inputText>
+
+            </p:panelGrid>
+            <br></br>
+            <p:dataTable value="#{itensBean.entidades}" var="item" rendered="#{itensBean.busca == true}">
+                <p:column>
+                    <p:commandButton value="Editar" action="#{itensBean.editar(item)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{itensBean.deletar(item)}" update="@form"></p:commandButton>
+                </p:column>
+
+                <p:column headerText="Cod. Item" sortBy="#{item.codeItem}">
+                    <h:outputText value="#{item.codeItem}"></h:outputText>
+                </p:column>
+                
+                <p:column headerText="Nome" sortBy="#{item.nome}">
+                    <h:outputText value="#{item.nome}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="Preço" sortBy="#{item.preco}">
+                    <h:outputText value="#{item.preco}"></h:outputText>
+                </p:column>
+
+                <p:column headerText="Quantidade" sortBy="#{item.quantidade}">
+                    <h:outputText value="#{item.quantidade}"></h:outputText>
+                </p:column>
+
+            </p:dataTable>
+                <br/>
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Novo" action="#{itensBean.novo()}" disabled="#{itensBean.edita}" update="@form"></p:commandButton>
+                        <p:commandButton value="Salvar" action="#{itensBean.salvar()}" disabled="#{itensBean.busca}" update="@form"></p:commandButton>
+                        <p:commandButton value="Listar" action="#{itensBean.buscar()}" update="@form"></p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+        </p:fieldset>                  
+        
+    </h:form>
+
+
+</ui:decorate>
+
